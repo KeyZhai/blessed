@@ -18,7 +18,7 @@ export default async function Sidebar() {
               alt=""
               role="presentation"
             />
-            <strong>God Beless You</strong>
+            <strong>Less Typing</strong>
           </section>
         </Link>
         <section className="sidebar-menu" role="menubar">

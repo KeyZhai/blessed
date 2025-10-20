@@ -20,6 +20,7 @@ export default function SidebarNoteContent({
   const pathname = usePathname();
   const selectedId = pathname?.split("/")[1] || null;
 
+  //在 nextjs 中 useTransition 会自动跟踪路由变化
   const [isPending] = useTransition();
   const [isExpanded, setIsExpanded] = useState(false);
   const isActive = id === selectedId;
