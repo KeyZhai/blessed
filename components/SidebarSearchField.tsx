@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useTransition } from "react";
+import { useTranslation } from "@/app/i18n/index";
 
 function Spinner({ active = true }) {
   return (
@@ -13,10 +14,11 @@ function Spinner({ active = true }) {
   );
 }
 
-export default function SidebarSearchField() {
+export default async function SidebarSearchField({ lng }: { lng: string }) {
   const { replace } = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
+  const { t } = await useTranslation(lng);
 
   function handleSearch(term: string) {
     const params = new URLSearchParams(window.location.search);
@@ -34,11 +36,11 @@ export default function SidebarSearchField() {
   return (
     <div className="search" role="search">
       <label className="offscreen" htmlFor="sidebar-search-input">
-        Search for a note by title
+        {t("search")}
       </label>
       <input
         id="sidebar-search-input"
-        placeholder="Search"
+        placeholder={t("search")}
         type="text"
         onChange={(e) => handleSearch(e.target.value)}
       />

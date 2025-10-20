@@ -4,7 +4,7 @@ import { useState, useActionState, useEffect } from "react";
 import NotePreview from "@/components/NotePreview";
 import SaveButton from "@/components/SaveButton";
 import DeleteButton from "@/components/DeleteButton";
-import { deleteNote, saveNote } from "../app/actions";
+import { deleteNote, saveNote } from "@/actions";
 
 interface NoteEditorProps {
   noteId: string | null;
