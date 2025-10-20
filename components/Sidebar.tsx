@@ -3,6 +3,7 @@ import Link from "next/link";
 import SidebarNoteList from "@/components/SidebarNoteList";
 import EditButton from "@/components/EditButton";
 import NoteListSkeleton from "@/components/NoteListSkeleton";
+import SidebarSearchField from "@/components/SidebarSearchField";
 
 export default async function Sidebar() {
   return (
@@ -22,7 +23,7 @@ export default async function Sidebar() {
           </section>
         </Link>
         <section className="sidebar-menu" role="menubar">
-          {/* SideSearchField */}
+          <SidebarSearchField />
         </section>
         <nav>
           <section className="sidebar-menu" role="menubar">

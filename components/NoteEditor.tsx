@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useActionState, useEffect } from "react";
 import NotePreview from "@/components/NotePreview";
+import SaveButton from "@/components/SaveButton";
+import DeleteButton from "@/components/DeleteButton";
 import { deleteNote, saveNote } from "../app/actions";
 
 interface NoteEditorProps {
@@ -15,10 +17,23 @@ export default function NoteEditor({
   initialTitle,
   initialBody,
 }: NoteEditorProps) {
-  const [isPending, startTransition] = useTransition();
+  const [saveState, saveFormAction, isSaving] = useActionState(
+    saveNote,
+    undefined
+  );
+  const [deleteState, deleteFormAction, isDeleting] = useActionState(
+    deleteNote,
+    undefined
+  );
   const [title, setTitle] = useState(initialTitle);
   const [body, setBody] = useState(initialBody);
   const isDraft = !noteId;
+
+  useEffect(() => {
+    if (saveState?.error) {
+      console.error("Save error:", saveState.error);
+    }
+  }, [saveState]);
 
   return (
     <div className="note-editor">
@@ -45,50 +60,27 @@ export default function NoteEditor({
       </form>
       <div className="note-editor-preview">
         <form className="note-editor-menu" role="menubar">
-          <button
-            className="note-editor-done"
-            disabled={isPending}
-            type="submit"
-            role="menuitem"
-            onClick={(e) => {
-              e.preventDefault();
-              startTransition(async () => {
-                await saveNote(noteId, title, body);
-              });
-            }}
-          >
-            <img
-              src="/checkmark.svg"
-              width="14px"
-              height="10px"
-              alt=""
-              role="presentation"
-            />
-            Done
-          </button>
+          <input type="hidden" name="noteId" value={noteId || ""} />
+          <input type="hidden" name="title" value={title} />
+          <input type="hidden" name="body" value={body} />
+          <SaveButton saveFormAction={saveFormAction} isSaving={isSaving} />
           {!isDraft && (
-            <button
-              className="note-editor-delete"
-              disabled={isPending}
-              role="menuitem"
-              onClick={(e) => {
-                e.preventDefault();
-                startTransition(async () => {
-                  await deleteNote(noteId!);
-                });
-              }}
-            >
-              <img
-                src="/cross.svg"
-                width="10px"
-                height="10px"
-                alt=""
-                role="presentation"
-              />
-              Delete
-            </button>
+            <DeleteButton
+              deleteFormAction={deleteFormAction}
+              isDeleting={isDeleting}
+            />
           )}
         </form>
+        {saveState?.error && (
+          <div className="error" style={{ color: "red", marginTop: "10px" }}>
+            {saveState.error}
+          </div>
+        )}
+        {deleteState?.error && (
+          <div className="error" style={{ color: "red", marginTop: "10px" }}>
+            {deleteState.error}
+          </div>
+        )}
         <div className="label label--preview" role="status">
           Preview
         </div>

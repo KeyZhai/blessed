@@ -6,7 +6,7 @@ interface NoteProps {
   note: {
     title: string;
     content: string;
-    updateTime: string;
+    updateTime: Date;
   };
 }
 

@@ -2,7 +2,7 @@
 export interface NoteData {
   title: string;
   content: string;
-  updateTime: string;
+  updateTime: Date;
 }
 
 // 所有笔记的类型 (Redis哈希结构)
