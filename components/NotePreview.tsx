@@ -1,5 +1,8 @@
+"use client";
+
 import { marked } from "marked";
 import sanitizeHtml from "sanitize-html";
+import { useEffect, useState } from "react";
 
 interface NotePreviewProps {
   children: string;
@@ -20,9 +23,18 @@ const allowedAttributes = Object.assign(
   }
 );
 
-export default async function NotePreview({ children }: NotePreviewProps) {
-  // 使用 await 处理异步的 marked
-  const html = await marked(children || "");
+export default function NotePreview({ children }: NotePreviewProps) {
+  const [html, setHtml] = useState("");
+
+  useEffect(() => {
+    // 在客户端异步处理 marked
+    const processMarkdown = async () => {
+      const processedHtml = await marked(children || "");
+      setHtml(processedHtml);
+    };
+    processMarkdown();
+  }, [children]);
+
   const sanitizedHtml = sanitizeHtml(html, {
     allowedTags,
     allowedAttributes,

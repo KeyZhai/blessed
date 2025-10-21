@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useTransition } from "react";
-import { useTranslation } from "@/app/i18n/index";
+import { useTranslation } from "@/app/i18n/client";
 
 function Spinner({ active = true }) {
   return (
@@ -14,11 +14,11 @@ function Spinner({ active = true }) {
   );
 }
 
-export default async function SidebarSearchField({ lng }: { lng: string }) {
+export default function SidebarSearchField({ lng }: { lng: string }) {
   const { replace } = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
-  const { t } = await useTranslation(lng);
+  const { t } = useTranslation(lng, "basic");
 
   function handleSearch(term: string) {
     const params = new URLSearchParams(window.location.search);

@@ -1,5 +1,11 @@
 {
   "new": "new",
   "initText": "Click a note on the left to view something! 🥺",
-  "search": "search"
+  "search": "search",
+  "edit": "edit",
+  "emptyNotes": "No notes found!",
+  "done": "done",
+  "delete": "delete",
+  "preview": "preview",
+  "saving": "saving"
 }
