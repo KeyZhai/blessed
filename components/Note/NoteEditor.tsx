@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useActionState, useEffect } from "react";
-import NotePreview from "@/components/NotePreview";
-import SaveButton from "@/components/SaveButton";
-import DeleteButton from "@/components/DeleteButton";
+import NotePreview from "@/components/Note/NotePreview";
+import SaveButton from "@/components/Note/SaveButton";
+import DeleteButton from "@/components/Note/DeleteButton";
 import { deleteNote, saveNote } from "@/actions";
 
 interface NoteEditorProps {

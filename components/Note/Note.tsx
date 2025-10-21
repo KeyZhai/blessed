@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
-import NotePreview from "@/components/NotePreview";
-import EditButton from "@/components/EditButton";
+import NotePreview from "@/components/Note/NotePreview";
+import EditButton from "@/components/Note/EditButton";
 interface NoteProps {
   noteId: string;
   note: {

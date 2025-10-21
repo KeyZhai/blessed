@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import SidebarNoteItemContent from "@/components/SidebarNoteItemContent";
+import SidebarNoteItemContent from "@/components/Sidebar/SidebarNoteItemContent";
 interface SidebarNoteListProps {
   notes: {
     noteId: string;

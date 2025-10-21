@@ -7,5 +7,6 @@
   "done": "完成",
   "delete": "删除",
   "preview": "预览",
-  "saving": "保存中..."
+  "saving": "保存中...",
+  "import": "导入"
 }

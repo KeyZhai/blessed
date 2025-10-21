@@ -1,4 +1,4 @@
-import NoteEditor from "@/components/NoteEditor";
+import NoteEditor from "@/components/Note/NoteEditor";
 import { getNote } from "@/lib/redis";
 
 export default async function EditPage({

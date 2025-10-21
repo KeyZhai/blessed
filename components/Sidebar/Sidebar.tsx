@@ -1,10 +1,11 @@
 import React, { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import SidebarNoteList from "@/components/SidebarNoteList";
-import EditButton from "@/components/EditButton";
-import NoteListSkeleton from "@/components/NoteListSkeleton";
-import SidebarSearchField from "@/components/SidebarSearchField";
+import SidebarNoteList from "@/components/Sidebar/SidebarNoteList";
+import EditButton from "@/components/Note/EditButton";
+import NoteListSkeleton from "@/components/Sidebar/NoteListSkeleton";
+import SidebarSearchField from "@/components/Sidebar/SidebarSearchField";
+import SidebarImport from "@/components/Sidebar/SidebarImport";
 import { useTranslation } from "@/app/i18n/index";
 
 export default async function Sidebar({ lng }: { lng: string }) {
@@ -34,6 +35,7 @@ export default async function Sidebar({ lng }: { lng: string }) {
             <SidebarNoteList />
           </Suspense>
         </nav>
+        <SidebarImport lng={lng} />
       </section>
     </>
   );

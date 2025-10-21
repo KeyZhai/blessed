@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import SidebarNoteItemContent from "@/components/SidebarNoteItemContent";
+import SidebarNoteItemContent from "@/components/Sidebar/SidebarNoteItemContent";
 import type { SidebarNoteItemProps } from "@/lib/types";
 
 export default function SidebarNoteItem({

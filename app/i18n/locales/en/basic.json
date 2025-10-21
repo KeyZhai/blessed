@@ -7,5 +7,6 @@
   "done": "done",
   "delete": "delete",
   "preview": "preview",
-  "saving": "saving"
+  "saving": "saving",
+  "import": "import"
 }

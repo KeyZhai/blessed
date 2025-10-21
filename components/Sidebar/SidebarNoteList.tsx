@@ -1,6 +1,6 @@
-import SidebarNoteListFilter from "@/components/SidebarNoteListFilter";
+import SidebarNoteListFilter from "@/components/Sidebar/SidebarNoteListFilter";
 import { getAllNotes } from "@/lib/redis";
-import SidebarNoteItemHeader from "@/components/SidebarNoteItemHeader";
+import SidebarNoteItemHeader from "@/components/Sidebar/SidebarNoteItemHeader";
 
 export default async function SidebarNoteList() {
   const notes = await getAllNotes();
