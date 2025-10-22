@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Sidebar from "@/components/Sidebar/Sidebar";
+import Header from "@/components/Header/Header";
 import "@/public/globals.css";
 import { locales } from "@/config";
 
@@ -29,6 +30,7 @@ export default async function RootLayout({
     <html lang={lng}>
       <body>
         <div className="container">
+          {/* <Header /> */}
           <div className="main">
             <Sidebar lng={lng} />
             <section className="col note-viewer">{children}</section>

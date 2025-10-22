@@ -42,4 +42,34 @@ export async function delNote(uuid: string): Promise<number> {
   return redis.hdel("notes", uuid);
 }
 
+export async function getUser(
+  username: string,
+  password: string
+): Promise<{ name: string; username: string } | 0 | 1> {
+  const storedPassword = await redis.hget("users", username);
+
+  // 用户不存在
+  if (!storedPassword) return 0;
+
+  // 密码错误
+  if (storedPassword !== password) return 1;
+
+  // 验证成功
+  return {
+    name: username,
+    username,
+  };
+}
+
+export async function addUser(
+  username: string,
+  password: string
+): Promise<{ name: string; username: string }> {
+  await redis.hset("users", username, password);
+
+  return {
+    name: username,
+    username,
+  };
+}
 export default redis;
