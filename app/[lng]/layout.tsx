@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Header from "@/components/Header/Header";
+import { Toaster } from "@/components/ui/sonner";
 import "@/public/globals.css";
 import { locales } from "@/config";
 
@@ -29,6 +30,7 @@ export default async function RootLayout({
   return (
     <html lang={lng}>
       <body>
+        <Toaster position="top-center" />
         <div className="container">
           {/* <Header /> */}
           <div className="main">

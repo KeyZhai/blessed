@@ -13,6 +13,8 @@ import type { NoteData } from "@/lib/types";
 // 定义返回状态类型
 export type ActionState = {
   error?: string;
+  success?: boolean;
+  noteId?: string;
 };
 
 const schema = z.object({
@@ -51,13 +53,14 @@ export async function saveNote(
       noteId = res;
     }
   } catch (error) {
-    return { error: "Failed to save note" };
+    return { error: "保存失败" };
   }
 
   // 清除缓存，确保侧边栏和页面显示最新数据
   revalidatePath("/", "layout"); // 更新侧边栏缓存
-  // redirect 会抛出错误,中断执行
-  redirect(`/note/${noteId}`);
+
+  // 返回成功状态，让客户端显示 toast 后再跳转
+  return { success: true, noteId };
 }
 
 export async function deleteNote(
@@ -69,13 +72,14 @@ export async function deleteNote(
   try {
     await delNote(noteId);
   } catch (error) {
-    return { error: "Failed to delete note" };
+    return { error: "删除失败" };
   }
 
   // 清除缓存，确保侧边栏和页面显示最新数据
   revalidatePath("/", "layout");
-  // redirect 会抛出错误,中断执行
-  redirect("/");
+
+  // 返回成功状态
+  return { success: true };
 }
 
 export async function importNote(formData: FormData) {
