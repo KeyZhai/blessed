@@ -27,3 +27,27 @@ export interface SidebarNoteItemProps {
 export interface NoteListProps {
   notes: Notes;
 }
+
+export interface StrapiNoteData {
+  id: number;
+  title: string;
+  content: string;
+  slug: string;
+  updatedAt: string;
+}
+
+export interface StrapiNotesResponse {
+  data: StrapiNoteData[];
+}
+
+export interface StrapiSingleNoteResponse {
+  data: StrapiNoteData;
+}
+
+// 从 Strapi 获取的笔记（包含 id）
+export interface StrapiNote {
+  id: number;
+  title: string;
+  content: string;
+  updateTime: string;
+}
