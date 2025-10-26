@@ -2,12 +2,15 @@
 
 import { useSearchParams } from "next/navigation";
 import SidebarNoteItemContent from "@/components/Sidebar/SidebarNoteItemContent";
+import SidebarNoteItemHeader from "@/components/Sidebar/SidebarNoteItemHeader";
+
 interface SidebarNoteListProps {
   notes: {
     noteId: string;
     note: {
       title: string;
       content: string;
+      updateTime: Date;
     };
     header: React.ReactNode;
   }[];
@@ -16,28 +19,26 @@ interface SidebarNoteListProps {
 export default function SidebarNoteListFilter({ notes }: SidebarNoteListProps) {
   const searchParams = useSearchParams();
   const searchText = searchParams.get("q");
+
   return (
-    <ul className="notes-list">
+    <ul className="flex flex-col gap-1 px-2 py-2">
       {notes.map((noteItem) => {
-        const { noteId, note, header } = noteItem;
+        const { noteId, note } = noteItem;
         if (
           !searchText ||
           (searchText &&
             note.title.toLowerCase().includes(searchText.toLowerCase()))
         ) {
           return (
-            <SidebarNoteItemContent
-              key={noteId}
-              id={noteId}
-              title={note.title}
-              expandedChildren={
-                <p className="sidebar-note-excerpt">
-                  {note.content.substring(0, 20) || <i>(No content)</i>}
-                </p>
-              }
-            >
-              {header}
-            </SidebarNoteItemContent>
+            <li key={noteId}>
+              <SidebarNoteItemContent id={noteId} title={note.title}>
+                <SidebarNoteItemHeader
+                  title={note.title}
+                  updateTime={note.updateTime}
+                  content={note.content}
+                />
+              </SidebarNoteItemContent>
+            </li>
           );
         }
 

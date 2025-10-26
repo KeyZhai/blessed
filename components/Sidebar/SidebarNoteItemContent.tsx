@@ -1,28 +1,24 @@
 "use client";
 
-import { useState, useRef, useEffect, useTransition } from "react";
+import { useRef, useEffect, useTransition } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
 interface SidebarNoteContentProps {
   id: string;
   title: string;
   children: React.ReactNode;
-  expandedChildren: React.ReactNode;
 }
 
 export default function SidebarNoteContent({
   id,
   title,
   children,
-  expandedChildren,
 }: SidebarNoteContentProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const selectedId = pathname?.split("/")[1] || null;
+  const selectedId = pathname?.split("/")[2] || null; // 修改为 /note/[id] 结构
 
-  //在 nextjs 中 useTransition 会自动跟踪路由变化
   const [isPending] = useTransition();
-  const [isExpanded, setIsExpanded] = useState(false);
   const isActive = id === selectedId;
 
   // Animate after title is edited.
@@ -46,24 +42,19 @@ export default function SidebarNoteContent({
           itemRef.current.classList.remove("flash");
         }
       }}
-      className={[
-        "sidebar-note-list-item",
-        isExpanded ? "note-expanded" : "",
-      ].join(" ")}
+      className="group relative"
     >
-      {children}
       <button
-        className="sidebar-note-open"
-        style={{
-          backgroundColor: isPending
-            ? "var(--gray-80)"
-            : isActive
-            ? "var(--tertiary-blue)"
-            : "",
-          border: isActive
-            ? "1px solid var(--primary-border)"
-            : "1px solid transparent",
-        }}
+        className={`
+          w-full text-left px-4 py-3 rounded-lg transition-all duration-200
+          hover:bg-gray-50 active:scale-[0.98]
+          ${
+            isActive
+              ? "bg-blue-50 border-l-4 border-blue-500"
+              : "border-l-4 border-transparent"
+          }
+          ${isPending ? "opacity-50" : ""}
+        `}
         onClick={() => {
           const sidebarToggle = document.getElementById(
             "sidebar-toggle"
@@ -74,27 +65,8 @@ export default function SidebarNoteContent({
           router.push(`/note/${id}`);
         }}
       >
-        Open note for preview
+        {children}
       </button>
-      <button
-        className="sidebar-note-toggle-expand"
-        onClick={(e) => {
-          e.stopPropagation();
-          setIsExpanded(!isExpanded);
-        }}
-      >
-        {isExpanded ? (
-          <img
-            src="/chevron-down.svg"
-            width="10px"
-            height="10px"
-            alt="Collapse"
-          />
-        ) : (
-          <img src="/chevron-up.svg" width="10px" height="10px" alt="Expand" />
-        )}
-      </button>
-      {isExpanded && expandedChildren}
     </div>
   );
 }
